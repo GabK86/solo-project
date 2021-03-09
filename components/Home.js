@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import ApiServices from '../Services/ApiServices';
 
-export default function Home({ navigation }) {
+export default function Home ({ navigation }) {
   const [location, setLocation] = useState({});
 
   useEffect(() => {
@@ -43,7 +43,6 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#000537',
     alignItems: 'center',
     justifyContent: 'center',
   },

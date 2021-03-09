@@ -22,7 +22,7 @@ export default function Map ({ route }) {
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=${type}&key=${GOOGLE_API_KEY}`;
 
     useEffect(() => {
-        ApiServices.getRestaurants(url).then((restaurants) => setRestaurants(restaurants.results));
+        ApiServices.fetchRequiredData(url).then((restaurants) => setRestaurants(restaurants.results));
     }, []);
 
     // console.log('restaurants', restaurants);
@@ -30,9 +30,6 @@ export default function Map ({ route }) {
     return (
         <SafeAreaProvider style={{ flex: 1 }}>
             <View style={{
-                // backgroundColor: 'red',
-                // height: '50%',
-                // width: '100%'
                 flex: 1
             }}>
                 <MapView
@@ -44,7 +41,7 @@ export default function Map ({ route }) {
                         longitudeDelta: 0.04,
                     }}
                     style={{
-                        flex: 1
+                        flex: 1,
                     }}
                     provider="google"
                 >
@@ -58,13 +55,9 @@ export default function Map ({ route }) {
                 </MapView>
             </View >
             <View style={{
-                // backgroundColor: 'blue',
-                // height: '50%',
-                // width: '100%'
                 flex: 1
             }}>
                 <FlatList
-                    // style={{ flex: 1 }}
                     data={restaurants}
                     keyExtractor={(item) => item.place_id}
                     renderItem={({ item }) => (
@@ -74,8 +67,9 @@ export default function Map ({ route }) {
                                 rating={item.rating}
                                 totalRatings={item.user_ratings_total}
                                 priceLevel={item.price_level}
-                                placeId={place_id}
-
+                                placeId={item.place_id}
+                                userLatitude={latitude}
+                                userLongitude={longitude}
                             />
                         </TouchableOpacity>
                     )
@@ -88,8 +82,6 @@ export default function Map ({ route }) {
 
 const styles = StyleSheet.create({
     container: {
-        // alignItems: 'center',
-        // justifyContent: 'space-around',]
         flex: 1
     },
     map: {

@@ -8,9 +8,6 @@ const getUserLocation = async () => {
   return location;
 };
 
-const getRestaurants = (url) => fetch(url).then((result) => result.json()).then((result) => result);
+const fetchRequiredData = (url) => fetch(url).then((result) => result.json());
 
-// let location = getUserLocation();
-// console.log(JSON.stringify(location));
-
-export default { getUserLocation, getRestaurants };
+export default { getUserLocation, fetchRequiredData };

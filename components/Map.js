@@ -5,8 +5,9 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import { useEffect, useState } from 'react/cjs/react.development';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as Linking from 'expo-linking';
 
-import { GOOGLE_API_KEY } from "@env";
+import { GOOGLE_API_KEY, GOOGLE_MAPS_URL } from "@env";
 import ApiServices from '../Services/ApiServices';
 import ListItem from '../components/ListItem';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -61,7 +62,7 @@ export default function Map ({ route }) {
                     data={restaurants}
                     keyExtractor={(item) => item.place_id}
                     renderItem={({ item }) => (
-                        < TouchableOpacity >
+                        < TouchableOpacity onPress={() => Linking.openURL(`${GOOGLE_MAPS_URL}origin=${latitude},${longitude}&destination=''&destination_place_id=${item.place_id}&mode=walking`)}>
                             <ListItem name={item.name}
                                 photoReference={item.photos && item.photos[0].photo_reference}
                                 rating={item.rating}
@@ -76,7 +77,7 @@ export default function Map ({ route }) {
                     }
                 />
             </View>
-        </SafeAreaProvider>
+        </SafeAreaProvider >
     );
 }
 

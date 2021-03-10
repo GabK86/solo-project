@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { AirbnbRating, Rating } from "react-native-ratings";
 import StarRating from 'react-native-star-rating';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { GOOGLE_API_KEY, PHOTO_URL, GOOGLE_DISTANCE_MATRIX_URL } from '@env';
 import ApiServices from '../Services/ApiServices';
@@ -25,8 +26,6 @@ export default function ListItem (props) {
         });
     }, []);
 
-    // console.log('This is the top =================>>>>>>', duration);
-
     return (
         <SafeAreaProvider style={styles.listItem}>
             <View style={{
@@ -39,22 +38,21 @@ export default function ListItem (props) {
             </View>
             <View style={{
                 display: 'flex',
-                width: '70%',
+                width: '58%',
                 paddingLeft: 10,
             }}>
                 <Text style={styles.text}>{props.name}</Text>
                 <View>
-
                     <Rating
                         type='custom'
-                        tintColor='teal'
+                        tintColor='rgb(0, 48, 135)'
                         startingValue={props.rating}
                         fractions={1}
                         showRating={true}
                         readonly={true}
                         ratingBackgroundColor='#c8c7c8'
                         ratingCount={5}
-                        imageSize={30}
+                        imageSize={23}
                         style={{
                             paddingTop: 5,
                             marginTop: 5,
@@ -64,12 +62,16 @@ export default function ListItem (props) {
                     />
                 </View>
                 <View style={{
-                    paddingTop: 45
+                    paddingTop: 33
                 }}>
-                    <Text style={{
-                        color: 'white',
-                    }}>Walking distance {distance} in aprox {duration} </Text>
+                    <Text style={styles.smallText}>Distance: {distance} </Text>
+                    <Text style={styles.smallText}>Walking time: aprox {duration} </Text>
                 </View>
+            </View>
+            <View style={{
+                alignSelf: 'center'
+            }} >
+                <MaterialIcons name="arrow-forward-ios" size={35} color="#e6e6e6" />
             </View>
         </SafeAreaProvider>
     );
@@ -79,8 +81,8 @@ const styles = StyleSheet.create({
     listItem: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        padding: 10,
-        backgroundColor: 'teal',
+        padding: 5,
+        backgroundColor: 'rgb(0, 48, 135)',
         marginBottom: 5,
         marginLeft: 5,
         marginRight: 5,
@@ -88,12 +90,20 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontWeight: 'bold',
-        paddingBottom: 15,
-        alignSelf: 'flex-start'
+        paddingBottom: 16,
+        alignSelf: 'flex-start',
+        fontFamily: 'monospace',
+        fontSize: 18
 
     },
+    smallText: {
+        color: 'white',
+        fontFamily: 'sans-serif-condensed',
+        fontSize: 16
+    },
     image: {
-        width: 100,
-        height: 100,
+        width: 115,
+        height: 115,
+
     }
 });
